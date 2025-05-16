@@ -1,0 +1,189 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Surpresa da Pucca</title>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+      font-family: 'Arial', sans-serif;
+    }
+    .pagina1 {
+      background-color: #ff0000;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    .bordas {
+      position: absolute;
+      border: 20px solid black;
+      top: 0; left: 0;
+      right: 0; bottom: 0;
+      pointer-events: none;
+      box-sizing: border-box;
+    }
+    .pucca-img {
+      width: 200px;
+      animation: aparecer 1s ease forwards;
+    }
+    @keyframes aparecer {
+      from { opacity: 0; transform: scale(0.5); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    .botao-amor {
+      position: absolute;
+      bottom: 60px;
+      padding: 15px 30px;
+      font-size: 18px;
+      background-color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+    .pagina2 {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background-color: #fff0f5;
+      height: 100vh;
+      position: relative;
+      text-align: center;
+    }
+    .carousel-container {
+      width: 100%;
+      overflow: hidden;
+      margin-top: 20px;
+    }
+    .carousel {
+      display: flex;
+      animation: deslizar 20s linear infinite;
+    }
+    .carousel img {
+      width: 220px;
+      height: 220px;
+      object-fit: cover;
+      border-radius: 20px;
+      transform: rotate(-10deg);
+      margin: 0 10px;
+    }
+    @keyframes deslizar {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-100%); }
+    }
+    .carta-fechada, .carta-aberta {
+      width: 150px;
+      margin-top: 20px;
+      cursor: pointer;
+    }
+    .poema {
+      display: none;
+      padding: 20px;
+      font-size: 18px;
+      max-width: 80%;
+    }
+    .botao-beijo {
+      display: none;
+      margin-top: 20px;
+      padding: 15px 30px;
+      font-size: 18px;
+      background-color: #ff69b4;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+    .beijo-final {
+      display: none;
+      margin-top: 20px;
+    }
+    .coracoes {
+      position: absolute;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .cora {
+      position: absolute;
+      width: 30px;
+      animation: cair 5s linear infinite;
+    }
+    @keyframes cair {
+      0% { top: -50px; }
+      100% { top: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <div class="pagina1" id="pagina1">
+    <div class="bordas"></div>
+    <img src="https://i.imgur.com/lRzqYBJ.png" class="pucca-img" alt="Pucca">
+    <button class="botao-amor" onclick="irParaPagina2()">Clique aqui se você me ama</button>
+  </div>
+
+  <div class="pagina2" id="pagina2">
+    <div class="coracoes" id="coracoes"></div>
+    <div class="carousel-container">
+      <div class="carousel">
+        <img src="https://i.imgur.com/crfarsk.png">
+        <img src="https://i.imgur.com/7FztXT6.png">
+        <img src="https://i.imgur.com/4EjcBzK.png">
+        <img src="https://i.imgur.com/Wbo3HAM.png">
+        <img src="https://i.imgur.com/VgYpRvJ.png">
+      </div>
+    </div>
+    <img src="https://i.imgur.com/ccqfEQz.png" id="carta" class="carta-fechada" onclick="abrirCarta()">
+    <div class="poema" id="poema">
+      <p>Você é minha poesia viva, meu sorriso mais sincero, minha alegria favorita. Cada detalhe seu é o motivo do meu amor crescer todo dia. Obrigado por existir!</p>
+    </div>
+    <button class="botao-beijo" id="botaoBeijo" onclick="mostrarBeijo()">Me dá um beijo rsrs</button>
+    <div class="beijo-final" id="beijoFinal">
+      <img src="https://i.imgur.com/HEnyK7s.png" width="300">
+      <br>
+      <iframe width="300" height="60" src="https://vocaroo.com/embed/1bLXQlSkPBqG?autoplay=1" frameborder="0" allow="autoplay"></iframe>
+    </div>
+  </div>
+
+  <script>
+    function irParaPagina2() {
+      document.getElementById('pagina1').style.display = 'none';
+      document.getElementById('pagina2').style.display = 'flex';
+      criarCoracoes();
+    }
+
+    function abrirCarta() {
+      const carta = document.getElementById('carta');
+      carta.src = "https://i.imgur.com/eJEgnxS.png";
+      carta.onclick = fecharPoema;
+      document.getElementById('poema').style.display = 'block';
+    }
+
+    function fecharPoema() {
+      document.getElementById('botaoBeijo').style.display = 'inline-block';
+    }
+
+    function mostrarBeijo() {
+      document.getElementById('beijoFinal').style.display = 'block';
+    }
+
+    function criarCoracoes() {
+      const container = document.getElementById('coracoes');
+      for (let i = 0; i < 15; i++) {
+        const cora = document.createElement('img');
+        cora.src = "https://i.imgur.com/rsmAfIQ.png";
+        cora.classList.add('cora');
+        cora.style.left = Math.random() * 100 + '%';
+        cora.style.animationDuration = (3 + Math.random() * 5) + 's';
+        container.appendChild(cora);
+      }
+    }
+  </script>
+</body>
+</html>
